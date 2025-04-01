@@ -90,7 +90,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contacto" className="py-20 px-4 relative">
+    <section id="contacto" className="py-20 px-4 relative overflow-hidden">
       <div className="container mx-auto max-w-6xl">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -115,7 +115,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="text-white font-medium">Email</h3>
-                  <p className="text-purple-200/70">Contacto@gimlet.com.ar</p>
+                  <p className="text-purple-200/70">r@gimlet.com.ar</p>
                 </div>
               </div>
 
@@ -125,7 +125,17 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h3 className="text-white font-medium">Teléfono</h3>
-                  <p className="text-purple-200/70">+12 123 456 789</p>
+                  <p className="text-purple-200/70">+54 9 11 443356522</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-purple-600/20 flex items-center justify-center">
+                  <MessageSquare className="h-5 w-5 text-purple-400" />
+                </div>
+                <div>
+                  <h3 className="text-white font-medium">Soporte</h3>
+                  <p className="text-purple-200/70">soporte@tuempresa.com</p>
                 </div>
               </div>
             </div>
@@ -221,7 +231,7 @@ export default function ContactSection() {
         </div>
       </div>
 
-      {/* Background gradient */}
+      {/* Background gradient - ajustado para evitar desbordamiento */}
       <div className="absolute bottom-0 left-0 w-full h-full max-w-3xl max-h-3xl rounded-full bg-purple-600/10 blur-[120px] -z-10" />
     </section>
   )
