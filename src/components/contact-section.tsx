@@ -129,7 +129,7 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
+              {/*<div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-purple-600/20 flex items-center justify-center">
                   <MessageSquare className="h-5 w-5 text-purple-400" />
                 </div>
@@ -137,7 +137,7 @@ export default function ContactSection() {
                   <h3 className="text-white font-medium">Soporte</h3>
                   <p className="text-purple-200/70">soporte@tuempresa.com</p>
                 </div>
-              </div>
+              </div>*/}
             </div>
           </motion.div>
 
