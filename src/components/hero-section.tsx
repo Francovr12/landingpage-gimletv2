@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, MousePointer } from "lucide-react"
+import Image from "next/image"
 
 export default function HeroSection() {
   const words = ["estrategias", "conceptos", "proyectos", "innovaciones", "soluciones", "creatividad"]
@@ -85,6 +86,9 @@ export default function HeroSection() {
       "rgba(167, 139, 250,", // Violeta más claro
       "rgba(196, 181, 253,", // Lavanda
       "rgba(109, 40, 217,", // Púrpura
+      "rgba(79, 70, 229,", // Índigo
+      "rgba(45, 212, 191,", // Turquesa
+      "rgba(16, 185, 129,", // Verde esmeralda
     ]
 
     // Reducir el número de partículas en dispositivos móviles
@@ -142,7 +146,30 @@ export default function HeroSection() {
       className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-10 px-4 overflow-hidden"
     >
       {/* Gradiente de fondo */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950/20 to-black z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950/20 to-black z-0">
+        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.3)_0%,transparent_60%)]"></div>
+      </div>
+
+      {/* Imágenes en las esquinas */}
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] pointer-events-none z-0">
+        <Image
+          src="/images/corner-bottom-left.png"
+          alt="Decorative corner"
+          width={300}
+          height={300}
+          className="w-full h-full object-contain"
+        />
+      </div>
+
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] pointer-events-none z-0">
+        <Image
+          src="/images/corner-top-right.png"
+          alt="Decorative corner"
+          width={300}
+          height={300}
+          className="w-full h-full object-contain"
+        />
+      </div>
 
       {/* Elementos decorativos adicionales */}
       <div className="absolute top-0 right-0 w-full h-full overflow-hidden z-0">
@@ -154,7 +181,32 @@ export default function HeroSection() {
       {/* Canvas para partículas */}
       <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-40" />
 
-      <div className="container mx-auto max-w-6xl z-10">
+      {/* Elemento iridiscente central - Ahora más grande y posicionado más arriba */}
+      <motion.div
+        className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90vw] sm:w-[75vw] md:w-[65vw] lg:w-[55vw] max-w-[900px] z-1"
+        initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
+        animate={{
+          opacity: 0.85,
+          scale: [0.95, 1.05, 0.95],
+          rotate: [0, 360],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "linear",
+        }}
+      >
+        <Image
+          src="/images/iridescent-ring.png"
+          alt="Efecto iridiscente"
+          width={900}
+          height={900}
+          className="w-full h-auto object-contain filter drop-shadow-[0_0_25px_rgba(139,92,246,0.6)]"
+          priority
+        />
+      </motion.div>
+
+      <div className="container mx-auto max-w-6xl z-10 relative">
         <div className="grid gap-8 items-center">
           <motion.div
             className="space-y-6 max-w-xl mx-auto text-center sm:text-left sm:mx-0" // Centrado en móvil, alineado a la izquierda en desktop
@@ -175,17 +227,16 @@ export default function HeroSection() {
             </h1>
 
             <p className="text-lg text-purple-100/80 max-w-xl">
-              Descubre cómo nuestra agencia puede potenciar tu presencia digital y llevar tu marca al siguiente nivel.
+              Descubrí cómo nuestra agencia puede potenciar tu presencia digital y llevar tu marca al siguiente nivel.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
               <Button
                 size="lg"
-                variant="outline"
-                className="border-purple-500/30 text-white hover:bg-purple-500/10 px-8 py-6 text-lg rounded-full"
+                className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-6 text-lg rounded-full"
                 onClick={() => document.getElementById("servicios")?.scrollIntoView({ behavior: "smooth" })}
               >
-                Conoce más
+                Conocé más
               </Button>
             </div>
 
@@ -197,7 +248,7 @@ export default function HeroSection() {
               transition={{ delay: 1, duration: 1 }}
             >
               <MousePointer className="h-4 w-4" />
-              <span className="text-sm">Explora nuestro sitio para descubrir cómo podemos ayudarte</span>
+              <span className="text-sm">Explorá nuestro sitio para descubrir cómo podemos ayudarte</span>
             </motion.div>
           </motion.div>
         </div>
@@ -247,17 +298,18 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer"
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer z-10"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1.5 }}
         onClick={() => document.getElementById("servicios")?.scrollIntoView({ behavior: "smooth" })}
       >
         <div className="flex flex-col items-center gap-2">
-          <span className="text-purple-200 text-sm">Descubre más</span>
+          <span className="text-purple-200 text-sm">Descubrí más</span>
           <ChevronDown className="text-purple-400 animate-bounce h-6 w-6" />
         </div>
       </motion.div>
     </section>
   )
 }
+
