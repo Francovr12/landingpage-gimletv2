@@ -150,27 +150,6 @@ export default function HeroSection() {
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.3)_0%,transparent_60%)]"></div>
       </div>
 
-      {/* Imágenes en las esquinas */}
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] pointer-events-none z-0">
-        <Image
-          src="/images/corner-bottom-left.png"
-          alt="Decorative corner"
-          width={300}
-          height={300}
-          className="w-full h-full object-contain"
-        />
-      </div>
-
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] pointer-events-none z-0">
-        <Image
-          src="/images/corner-top-right.png"
-          alt="Decorative corner"
-          width={300}
-          height={300}
-          className="w-full h-full object-contain"
-        />
-      </div>
-
       {/* Elementos decorativos adicionales */}
       <div className="absolute top-0 right-0 w-full h-full overflow-hidden z-0">
         <div className="absolute top-[10%] right-[5%] w-64 h-64 rounded-full bg-purple-700/10 blur-3xl"></div>
@@ -196,14 +175,6 @@ export default function HeroSection() {
           ease: "linear",
         }}
       >
-        <Image
-          src="/images/iridescent-ring.png"
-          alt="Efecto iridiscente"
-          width={900}
-          height={900}
-          className="w-full h-auto object-contain filter drop-shadow-[0_0_25px_rgba(139,92,246,0.6)]"
-          priority
-        />
       </motion.div>
 
       <div className="container mx-auto max-w-6xl z-10 relative">
