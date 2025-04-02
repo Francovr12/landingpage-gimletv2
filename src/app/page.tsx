@@ -122,10 +122,11 @@ export default function LandingPage() {
               >
                 Contáctanos
               </Button>
-
-              <Link href="/entrevista-virtual">
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white">Trabajá con Nosotros</Button>
-              </Link>
+              <Button 
+                className="bg-purple-600 hover:bg-purple-700 text-white"
+                onClick={()=> scrollToSection("contacto")}>
+                  Trabajá con Nosotros
+                </Button>
             </div>
 
             {/* Mobile Navigation */}
@@ -165,15 +166,14 @@ export default function LandingPage() {
                       Contáctanos
                     </Button>
                   </SheetTrigger>
-                  <SheetTrigger asChild>
-                    <Link href="/entrevista-virtual">
+                  <SheetTrigger asChild>                   
                       <Button
+                        onClick={()=> scrollToSection("contacto")}
                         variant="outline"
                         className="border-purple-500/30 text-white hover:bg-purple-500/10 mt-2 w-full"
                       >
                         Trabajá con Nosotros
                       </Button>
-                    </Link>
                   </SheetTrigger>
                 </div>
               </SheetContent>
@@ -194,4 +194,4 @@ export default function LandingPage() {
     </div>
   )
 }
-
+{/*<Link href="/entrevista-virtual"></Link> "cuando quiera linkear un boton añado esto con <link> "*/}
