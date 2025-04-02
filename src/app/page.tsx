@@ -39,7 +39,7 @@ export default function LandingPage() {
       setScrolled(window.scrollY > 50)
 
       // Detectar sección activa
-      const sections = ["inicio", "servicios", "trabajos", "contacto"]
+      const sections = ["INICIO", "SERVICIOS", "TRABAJOS", "CONTACTO"]
       const scrollPosition = window.scrollY + 100 // Offset para mejor detección
 
       for (const section of sections) {
@@ -93,10 +93,10 @@ export default function LandingPage() {
             {/* Desktop Navigation - Centrado y mejorado */}
             <nav className="hidden md:flex items-center justify-center gap-1 bg-black/30 backdrop-blur-sm rounded-full px-2 py-1 border border-purple-900/20">
               {[
-                { id: "inicio", label: "Inicio" },
-                { id: "servicios", label: "Servicios" },
-                { id: "trabajos", label: "Trabajos" },
-                { id: "contacto", label: "Contacto" },
+                { id: "inicio", label: "INICIO" },
+                { id: "servicios", label: "SERVICIOS" },
+                { id: "trabajos", label: "TRABAJOS" },
+                { id: "contacto", label: "CONTACTO" },
               ].map((item) => (
                 <button
                   key={item.id}
