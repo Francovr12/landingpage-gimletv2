@@ -9,11 +9,16 @@ interface VideoWithLazyLoadingProps {
   alt?: string
 }
 
-export default function VideoWithLazyLoading({ videoSrc, thumbnail, alt = "Video" }: VideoWithLazyLoadingProps) {
+export default function VideoWithLazyLoading({
+  videoSrc,
+  thumbnail,
+  alt = "Video",
+}: VideoWithLazyLoadingProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isInView, setIsInView] = useState(false)
   const [hasError, setHasError] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
+
   const videoRef = useRef<HTMLVideoElement>(null)
   const observerRef = useRef<IntersectionObserver | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -21,21 +26,18 @@ export default function VideoWithLazyLoading({ videoSrc, thumbnail, alt = "Video
   const maxRetries = 3
 
   useEffect(() => {
-    // Crear un IntersectionObserver para detectar cuando el componente está en el viewport
     observerRef.current = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
           setIsInView(true)
-          // Desconectar el observer una vez que se detecta
           if (observerRef.current) {
             observerRef.current.disconnect()
           }
         }
       },
-      { threshold: 0.1 }, // Trigger when at least 10% of the element is visible
+      { threshold: 0.1 }
     )
 
-    // Elemento actual
     if (containerRef.current && observerRef.current) {
       observerRef.current.observe(containerRef.current)
     }
@@ -47,31 +49,29 @@ export default function VideoWithLazyLoading({ videoSrc, thumbnail, alt = "Video
     }
   }, [])
 
-  // Manejar la carga del video
   const handleVideoLoad = () => {
     setIsLoaded(true)
     setHasError(false)
   }
 
-  // Manejar errores de carga
   const handleVideoError = () => {
     if (retryCount.current < maxRetries) {
       retryCount.current += 1
-      console.log(`Error al cargar el video. Reintento ${retryCount.current} de ${maxRetries}`)
-
-      // Reintentar cargar el video después de un breve retraso
       setTimeout(() => {
         if (videoRef.current) {
           videoRef.current.load()
         }
       }, 1000)
     } else {
-      console.error("Error al cargar el video después de varios intentos")
       setHasError(true)
     }
   }
 
-  // Manejar clic en el video/thumbnail
+  const openVideoInNewTab = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    window.open(videoSrc, "_blank")
+  }
+
   const handleContainerClick = () => {
     if (!isLoaded || hasError) return
 
@@ -92,7 +92,6 @@ export default function VideoWithLazyLoading({ videoSrc, thumbnail, alt = "Video
       className="relative w-full h-full flex items-center justify-center overflow-hidden"
       onClick={handleContainerClick}
     >
-      {/* Thumbnail que se muestra mientras el video no está cargado o si hay error */}
       {(!isLoaded || !isInView || hasError) && (
         <div className="absolute inset-0 z-10">
           <Image
@@ -102,10 +101,11 @@ export default function VideoWithLazyLoading({ videoSrc, thumbnail, alt = "Video
             className="object-cover"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
-
-          {/* Indicador de reproducción sobre la thumbnail */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-purple-600/80 p-4 rounded-full hover:bg-purple-500 transition-colors">
+            <div
+              className="bg-purple-600/80 p-4 rounded-full hover:bg-purple-500 transition-colors cursor-pointer"
+              onClick={openVideoInNewTab}
+            >
               {hasError ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +148,6 @@ export default function VideoWithLazyLoading({ videoSrc, thumbnail, alt = "Video
         </div>
       )}
 
-      {/* Mensaje de error si no se puede cargar el video */}
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-20">
           <div className="text-center p-4">
@@ -166,11 +165,12 @@ export default function VideoWithLazyLoading({ videoSrc, thumbnail, alt = "Video
         </div>
       )}
 
-      {/* Video que se carga solo cuando está en el viewport */}
       {isInView && !hasError && (
         <video
           ref={videoRef}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+          className={`w-full h-full object-cover transition-opacity duration-300 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
           controls
           preload="metadata"
           playsInline
@@ -182,7 +182,6 @@ export default function VideoWithLazyLoading({ videoSrc, thumbnail, alt = "Video
         </video>
       )}
 
-      {/* Indicador de carga mientras el video se está cargando */}
       {isInView && !isLoaded && !hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 z-5">
           <div className="w-10 h-10 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
@@ -191,4 +190,3 @@ export default function VideoWithLazyLoading({ videoSrc, thumbnail, alt = "Video
     </div>
   )
 }
-
