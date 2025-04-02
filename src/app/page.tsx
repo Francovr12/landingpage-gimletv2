@@ -93,10 +93,10 @@ export default function LandingPage() {
             {/* Desktop Navigation - Centrado y mejorado */}
             <nav className="hidden md:flex items-center justify-center gap-1 bg-black/30 backdrop-blur-sm rounded-full px-2 py-1 border border-purple-900/20">
               {[
-                { id: "inicio", label: "INICIO" },
-                { id: "servicios", label: "SERVICIOS" },
-                { id: "trabajos", label: "TRABAJOS" },
-                { id: "contacto", label: "CONTACTO" },
+                { id: "inicio", label: "Inicio" },
+                { id: "servicios", label: "Servicios" },
+                { id: "trabajos", label: "Trabajos" },
+                { id: "contacto", label: "Contacto" },
               ].map((item) => (
                 <button
                   key={item.id}
@@ -116,16 +116,17 @@ export default function LandingPage() {
             {/* Botones de acción - A la derecha */}
             <div className="hidden md:flex items-center gap-3">
               <Button
-                variant="outline"
-                className="border-purple-500/30 text-white hover:bg-purple-500/10"
+                className="bg-purple-600 hover:bg-purple-700 text-white"
                 onClick={() => scrollToSection("contacto")}
               >
                 Contáctanos
               </Button>
-              <Button 
-                className="bg-purple-600 hover:bg-purple-700 text-white"
+
+              
+                <Button 
+                className="bg-purple-600 hover:bg-purple-700 text-white border border-purple-500"
                 onClick={()=> scrollToSection("contacto")}>
-                  Trabajá con Nosotros
+                  Trabaja con Nosotros
                 </Button>
             </div>
 
@@ -139,10 +140,10 @@ export default function LandingPage() {
               <SheetContent className="bg-black/95 border-purple-900/30">
                 <div className="flex flex-col gap-6 mt-10">
                   {[
-                    { id: "inicio", label: "INICIO" },
-                    { id: "servicios", label: "SERVICIOS" },
-                    { id: "trabajos", label: "TRABAJOS" },
-                    { id: "contacto", label: "CONTACTO" },
+                    { id: "inicio", label: "Inicio" },
+                    { id: "servicios", label: "Servicios" },
+                    { id: "trabajos", label: "Trabajos" },
+                    { id: "contacto", label: "Contacto" },
                   ].map((item) => (
                     <SheetTrigger asChild key={item.id}>
                       <button
@@ -166,14 +167,15 @@ export default function LandingPage() {
                       Contáctanos
                     </Button>
                   </SheetTrigger>
-                  <SheetTrigger asChild>                   
-                      <Button
-                        onClick={()=> scrollToSection("contacto")}
-                        variant="outline"
-                        className="border-purple-500/30 text-white hover:bg-purple-500/10 mt-2 w-full"
+                  <SheetTrigger asChild>
+                      <Button 
+                      onClick={()=> scrollToSection("contacto")}
+                      variant="outline"
+                      className="bg-purple-600 hover:bg-purple-700 text-white mt-2 w-full border border-purple-500"
                       >
-                        Trabajá con Nosotros
+                        Trabaja con Nosotros
                       </Button>
+                    
                   </SheetTrigger>
                 </div>
               </SheetContent>
