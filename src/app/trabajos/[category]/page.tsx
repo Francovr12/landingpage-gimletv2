@@ -297,7 +297,7 @@ const GALLERY_DATA: Record<string, GalleryItem[]> = {
       description: "",
       type: "video",
       thumbnail: "/events/wow1-thumbnail.jpg",
-      src: "/events/wow1.mp4",
+      src: "/events/wow1_temp.mp4",
       category: "Events",
     },
     {
@@ -324,7 +324,7 @@ const GALLERY_DATA: Record<string, GalleryItem[]> = {
       description: "",
       type: "video",
       thumbnail: "/events/wow3-thumbnail.jpg",
-      src: "/events/wow3.mp4",
+      src: "/events/wow3_temp.mp4",
       category: "Events",
     },
     {
@@ -487,7 +487,7 @@ const GALLERY_DATA: Record<string, GalleryItem[]> = {
       title: "",
       description: "",
       type: "video",
-      thumbnail: "", 
+      thumbnail: "/food/food3.jpg", 
       src: "/food/food3.mp4",
       category: "Food",
     },
