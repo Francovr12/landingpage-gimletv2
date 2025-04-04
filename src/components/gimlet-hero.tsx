@@ -53,11 +53,11 @@ export default function GimletHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight mb-6">
+          {/*<h1 className="text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight mb-6">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-white font-serif">
-              GIMLET
+              
             </span>
-          </h1>
+          </h1>*/}
 
           <div className="h-px w-24 bg-purple-400/50 mx-auto mb-6"></div>
 

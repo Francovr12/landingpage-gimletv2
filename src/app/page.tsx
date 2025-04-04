@@ -13,6 +13,7 @@ import HeroSection from "@/components/hero-section"
 import WorksSection from "@/components/works-section"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
+import { useScrollSpy } from "@/hooks/use-Scroll-Spy"
 
 // Importar el componente de servicios con carga dinámica para evitar problemas de hidratación
 const ServicesSection = dynamic(() => import("@/components/services-section-simple"), {
