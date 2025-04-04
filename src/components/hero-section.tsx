@@ -169,13 +169,22 @@ export default function HeroSection() {
       {/* Canvas para partículas */}
       <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-40" />
       {/* Burbuja decorativa al fondo izquierdo */}
-<div className="absolute left-0 top-1/4 w-[1200px] h-600px] opacity-20 z-0 pointer-events-none overflow-hidden">
-  <img
-    src="/fondo.png"
-    alt="Elemento decorativo"
-    className="w-full h-full object-contain transform -translate-x-1/2 scale-150"
-  />
-</div>
+      <div className="absolute left-0 top-1/4 w-[ 500px] h-[300px] md:w-[1200px] md:h-600px] opacity-20 z-0 pointer-events-none overflow-hidden">
+        <img
+          src="/fondo.png"
+          alt="Elemento decorativo"
+          className="w-full h-full object-contain transform -translate-x-1/2 scale-150"
+        />
+      </div>
+      {/* Burbuja decorativa al fondo derecho */}
+      <div className="absolute right-0 top-1/4 w-[900px] h-600px] opacity-20 z-0 pointer-events-none overflow-hidden">
+        <img
+          src="/fondo.png"
+          alt="Elemento decorativo" 
+          className="w-full h-full object-contain transform translate-x-1/2 scale-150"
+        />
+      </div>
+
 
       <div className="container mx-auto max-w-6xl z-10 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -220,27 +229,6 @@ export default function HeroSection() {
               <MousePointer className="h-4 w-4" />
               <span className="text-sm">Explorá nuestro sitio para descubrir cómo podemos ayudarte</span>
             </motion.div>
-          </motion.div>
-        {/* Columna derecha: Video con efecto iridiscente  */}
-        <motion.div
-          className="hidden md:flex justify-end items-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          >
-          <div className="relative w-[1200px] h-[400px] flex items-center justify-center">
-            <video
-              ref={videoRef}
-              className="w-full h-full object-contain mix-blend-screen"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src="/maximacalidad.webm" type="video/webm" />
-              Tu navegador no soporta videos.
-            </video>
-          </div>
           </motion.div>
             </div>
           </div> 
@@ -315,3 +303,25 @@ export default function HeroSection() {
     className="w-full h-full object-contain transform translate-x-1/2 scale-150"
   />
 </div>*/}
+
+{/*{/* Columna derecha: Video con efecto iridiscente
+<motion.div
+className="hidden md:flex justify-end items-center"
+initial={{ opacity: 0, scale: 0.9 }}
+animate={{ opacity: 1, scale: 1 }}
+transition={{ duration: 1, delay: 0.3 }}
+>
+<div className="relative w-[1200px] h-[400px] flex items-center justify-center">
+  <video
+    ref={videoRef}
+    className="w-full h-full object-contain mix-blend-screen"
+    autoPlay
+    loop
+    muted
+    playsInline
+  >
+    <source src="/maximacalidad.webm" type="video/webm" />
+    Tu navegador no soporta videos.
+  </video>
+</div>
+</motion.div>*/}
