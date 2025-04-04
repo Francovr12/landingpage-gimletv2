@@ -195,13 +195,13 @@ export default function HeroSection() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-              Transformamos
-              <span className="ml-3 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">
+              <span className="inline-block">Transformamos</span>{" "}
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600 min-w-[180px] sm:min-w-[220px] md:min-w-[280px]">
                 {isMounted ? displayedText : words[0].substring(0, 5)}
+                {isMounted && <span className="text-purple-400">|</span>}
               </span>
-              {isMounted && <span className="text-purple-400">|</span>}
-              <br />
-              en experiencias digitales
+              <br className="md:hidden" />
+              <span className="inline-block">en experiencias digitales</span>
             </h1>
 
             <p className="text-lg text-purple-100/80 max-w-xl">
