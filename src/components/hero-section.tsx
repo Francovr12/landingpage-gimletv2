@@ -169,22 +169,21 @@ export default function HeroSection() {
       {/* Canvas para partículas */}
       <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-40" />
       {/* Burbuja decorativa al fondo izquierdo */}
-      <div className="absolute left-0 top-1/4 w-[ 500px] h-[300px] md:w-[1200px] md:h-600px] opacity-20 z-0 pointer-events-none overflow-hidden">
+      <div className="absolute left-0 top-1/4 w-full max-w-[500px] h-[300px] md:max-w-[1200px] md:h-[600px] opacity-20 z-0 pointer-events-none overflow-hidden">
         <img
           src="/fondo.png"
           alt="Elemento decorativo"
-          className="w-full h-full object-contain transform -translate-x-1/2 scale-150"
+          className="w-full h-full object-contain transform -translate-x-1/2 scale-[1.2] md:scale-150"
         />
       </div>
       {/* Burbuja decorativa al fondo derecho */}
-      <div className="absolute right-0 top-1/4 w-[900px] h-600px] opacity-20 z-0 pointer-events-none overflow-hidden">
+      <div className="absolute right-0 top-1/4 w-full max-w-[500px] h-[300px] md:max-w-[1500px] md:h-[500px] opacity-20 z-0 pointer-events-none overflow-hidden">
         <img
           src="/fondo.png"
-          alt="Elemento decorativo" 
-          className="w-full h-full object-contain transform translate-x-1/2 scale-150"
+          alt="Elemento decorativo"
+          className="w-full h-full object-contain transform translate-x-1/2 scale-[1.2] md:scale-150"
         />
       </div>
-
 
       <div className="container mx-auto max-w-6xl z-10 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -196,7 +195,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-              Transformamos 
+              Transformamos
               <span className="ml-3 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">
                 {isMounted ? displayedText : words[0].substring(0, 5)}
               </span>
@@ -230,8 +229,8 @@ export default function HeroSection() {
               <span className="text-sm">Explorá nuestro sitio para descubrir cómo podemos ayudarte</span>
             </motion.div>
           </motion.div>
-            </div>
-          </div> 
+        </div>
+      </div>
       {/* Elementos decorativos flotantes - limitados en tamaño para móviles */}
       <motion.div
         className="absolute right-10 top-1/3 w-16 sm:w-20 h-16 sm:h-20 rounded-full bg-purple-500/20 blur-xl"
@@ -291,20 +290,19 @@ export default function HeroSection() {
   )
 }
 
-
-
-
-
-{/* Burbuja decorativa al fondo derecho 
+{
+  /* Burbuja decorativa al fondo derecho 
 <div className="absolute right-0 top-1/4 w-[900px] h-600px] opacity-20 z-0 pointer-events-none overflow-hidden">
   <img
     src="/fondo.png"
     alt="Elemento decorativo" 
     className="w-full h-full object-contain transform translate-x-1/2 scale-150"
   />
-</div>*/}
+</div>*/
+}
 
-{/*{/* Columna derecha: Video con efecto iridiscente
+{
+  /*{/* Columna derecha: Video con efecto iridiscente
 <motion.div
 className="hidden md:flex justify-end items-center"
 initial={{ opacity: 0, scale: 0.9 }}
@@ -324,4 +322,6 @@ transition={{ duration: 1, delay: 0.3 }}
     Tu navegador no soporta videos.
   </video>
 </div>
-</motion.div>*/}
+</motion.div>*/
+}
+
