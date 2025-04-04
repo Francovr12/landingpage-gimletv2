@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, MousePointer } from "lucide-react"
+import Image from "next/image"
 
 export default function HeroSection() {
   const words = ["estrategias", "conceptos", "proyectos", "innovaciones", "soluciones", "creatividad"]
@@ -12,6 +13,7 @@ export default function HeroSection() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [speed, setSpeed] = useState(100)
   const [isMounted, setIsMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   // Referencia para la animación de partículas
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -20,6 +22,20 @@ export default function HeroSection() {
   // Marcar que el componente está montado (solo en el cliente)
   useEffect(() => {
     setIsMounted(true)
+
+    // Detectar si es dispositivo móvil
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    // Verificar inicialmente
+    checkMobile()
+
+    // Actualizar en cambios de tamaño
+    window.addEventListener("resize", checkMobile)
+
+    // Limpiar
+    return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
   useEffect(() => {
@@ -168,26 +184,63 @@ export default function HeroSection() {
 
       {/* Canvas para partículas */}
       <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-40" />
-      {/* Burbuja decorativa al fondo izquierdo */}
-      <div className="absolute left-0 top-1/4 w-full max-w-[500px] h-[300px] md:max-w-[1200px] md:h-[600px] opacity-20 z-0 pointer-events-none overflow-hidden">
-        <img
-          src="/fondo.png"
-          alt="Elemento decorativo"
-          className="w-full h-full object-contain transform -translate-x-1/2 scale-[1.2] md:scale-150"
-        />
-      </div>
-      {/* Burbuja decorativa al fondo derecho */}
-      <div className="absolute right-0 top-1/4 w-full max-w-[500px] h-[300px] md:max-w-[1500px] md:h-[500px] opacity-20 z-0 pointer-events-none overflow-hidden">
-        <img
-          src="/fondo.png"
-          alt="Elemento decorativo"
-          className="w-full h-full object-contain transform translate-x-1/2 scale-[1.2] md:scale-150"
-        />
+
+      {/* Burbuja decorativa al fondo izquierdo
+      <div className="absolute left-0 top-1/3 w-full max-w-[500px] h-[300px] md:max-w-[1200px] md:h-[600px] opacity-20 z-0 pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1.2, 1.3, 1.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+          className="w-full h-full"
+        >
+          <Image
+            src="/fondo.png"
+            alt="Elemento decorativo"
+            width={1200}
+            height={600}
+            className="w-full h-full object-contain transform -translate-x-1/2 scale-[1.2] md:scale-150"
+          />
+        </motion.div>
+      </div> */}
+
+      {/* Burbuja decorativa al fondo derecho - CORREGIDA Y BAJADA */}
+      <div className="absolute right-0 top-1/3 mt-20 w-full max-w-[500px] h-[300px] md:max-w-[1500px] md:h-[600px] opacity-20 z-0 pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1.2, 1.4, 1.2],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+            ease: "easeInOut",
+            delay: 1,
+            repeatDelay: 2, // Espera 2s antes de volver a animar
+          }}
+          className="w-full h-full flex justify-end"
+        >
+          <div className="relative w-full h-full">
+            <Image
+              src="/fondo.png"
+              alt="Elemento decorativo"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain object-right"
+              style={{ transform: "scale(1.5)" }}
+            />
+          </div>
+        </motion.div>
       </div>
 
       <div className="container mx-auto max-w-6xl z-10 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          {/* Columna izquierda: Texto principal */}
+          {/* Columna izquierda: Texto principal - CORREGIDO A 2 LÍNEAS EN DESKTOP */}
           <motion.div
             className="space-y-6 text-center md:text-left"
             initial={{ opacity: 0, y: 20 }}
@@ -195,14 +248,20 @@ export default function HeroSection() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-              <span className="inline-block">Transformamos</span>{" "}
-              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600 min-w-[180px] sm:min-w-[220px] md:min-w-[280px]">
-                {isMounted ? displayedText : words[0].substring(0, 5)}
-                {isMounted && <span className="text-purple-400">|</span>}
+              {/* Línea 1 - fija en PC */}
+              <span className="block md:inline-block md:whitespace-nowrap">
+                Transformamos{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">
+                  {isMounted ? displayedText : words[0].substring(0, 5)}
+                  {isMounted && <span className="text-purple-400">|</span>}
+                </span>
               </span>
-              <br className="md:hidden" />
-              <span className="inline-block">en experiencias digitales</span>
+
+              {/* Línea 2 */}
+              <br className="hidden md:block" />
+              <span className="block">en experiencias digitales</span>
             </h1>
+
 
             <p className="text-lg text-purple-100/80 max-w-xl">
               Descubrí cómo nuestra agencia puede potenciar tu presencia digital y llevar tu marca al siguiente nivel.
@@ -231,6 +290,7 @@ export default function HeroSection() {
           </motion.div>
         </div>
       </div>
+
       {/* Elementos decorativos flotantes - limitados en tamaño para móviles */}
       <motion.div
         className="absolute right-10 top-1/3 w-16 sm:w-20 h-16 sm:h-20 rounded-full bg-purple-500/20 blur-xl"
@@ -290,38 +350,40 @@ export default function HeroSection() {
   )
 }
 
-{
-  /* Burbuja decorativa al fondo derecho 
-<div className="absolute right-0 top-1/4 w-[900px] h-600px] opacity-20 z-0 pointer-events-none overflow-hidden">
-  <img
-    src="/fondo.png"
-    alt="Elemento decorativo" 
-    className="w-full h-full object-contain transform translate-x-1/2 scale-150"
-  />
-</div>*/
-}
 
-{
-  /*{/* Columna derecha: Video con efecto iridiscente
-<motion.div
-className="hidden md:flex justify-end items-center"
-initial={{ opacity: 0, scale: 0.9 }}
-animate={{ opacity: 1, scale: 1 }}
-transition={{ duration: 1, delay: 0.3 }}
->
-<div className="relative w-[1200px] h-[400px] flex items-center justify-center">
-  <video
-    ref={videoRef}
-    className="w-full h-full object-contain mix-blend-screen"
-    autoPlay
-    loop
-    muted
-    playsInline
+
+
+  {
+    /* Burbuja decorativa al fondo derecho 
+  <div className="absolute right-0 top-1/4 w-[900px] h-600px] opacity-20 z-0 pointer-events-none overflow-hidden">
+    <img
+      src="/fondo.png"
+      alt="Elemento decorativo" 
+      className="w-full h-full object-contain transform translate-x-1/2 scale-150"
+    />
+  </div>*/
+  }
+
+  {
+    /*{/* Columna derecha: Video con efecto iridiscente
+  <motion.div
+  className="hidden md:flex justify-end items-center"
+  initial={{ opacity: 0, scale: 0.9 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 1, delay: 0.3 }}
   >
-    <source src="/maximacalidad.webm" type="video/webm" />
-    Tu navegador no soporta videos.
-  </video>
-</div>
-</motion.div>*/
-}
-
+  <div className="relative w-[1200px] h-[400px] flex items-center justify-center">
+    <video
+      ref={videoRef}
+      className="w-full h-full object-contain mix-blend-screen"
+      autoPlay
+      loop
+      muted
+      playsInline
+    >
+      <source src="/maximacalidad.webm" type="video/webm" />
+      Tu navegador no soporta videos.
+    </video>
+  </div>
+  </motion.div>*/
+  }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
@@ -24,10 +24,40 @@ const ServicesSection = dynamic(() => import("@/components/services-section-simp
   ),
 })
 
+// Definir las secciones para facilitar la navegación
+const sections = [
+  { id: "inicio", label: "INICIO" },
+  { id: "servicios", label: "SERVICIOS" },
+  { id: "trabajos", label: "TRABAJOS" },
+  { id: "contacto", label: "CONTACTO" },
+]
+
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("inicio")
   const [mounted, setMounted] = useState(false)
+
+  // Función mejorada para detectar la sección activa
+  const detectActiveSection = useCallback(() => {
+    if (typeof window === "undefined") return
+
+    const scrollPosition = window.scrollY + window.innerHeight / 3
+
+    // Recorremos las secciones en orden inverso para manejar correctamente el solapamiento
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = document.getElementById(sections[i].id)
+      if (!section) continue
+
+      const sectionTop = section.offsetTop
+      const sectionBottom = sectionTop + section.offsetHeight
+
+      // Si la posición de desplazamiento está dentro de los límites de la sección
+      if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+        setActiveSection(sections[i].id)
+        break
+      }
+    }
+  }, [])
 
   // Asegurarse de que el componente esté montado antes de renderizar
   useEffect(() => {
@@ -35,36 +65,36 @@ export default function LandingPage() {
   }, [])
 
   useEffect(() => {
+    if (!mounted) return
+
     const handleScroll = () => {
+      // Detectar si hemos desplazado más allá del umbral para cambiar el estilo de la barra de navegación
       setScrolled(window.scrollY > 50)
 
-      // Detectar sección activa
-      const sections = ["INICIO", "SERVICIOS", "TRABAJOS", "CONTACTO"]
-      const scrollPosition = window.scrollY + 100 // Offset para mejor detección
-
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const offsetTop = element.offsetTop
-          const offsetHeight = element.offsetHeight
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
-        }
-      }
+      // Detectar la sección activa
+      detectActiveSection()
     }
 
+    // Configurar el detector de desplazamiento
     window.addEventListener("scroll", handleScroll)
+
+    // Ejecutar una vez al inicio para establecer la sección correcta
+    detectActiveSection()
+
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [mounted, detectActiveSection])
 
   const scrollToSection = (id: string) => {
     if (typeof window !== "undefined") {
       const element = document.getElementById(id)
       if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" })
+        // Usar un pequeño offset para evitar que el encabezado fijo oculte el contenido
+        const offset = 80
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY
+        window.scrollTo({
+          top: elementPosition - offset,
+          behavior: "smooth",
+        })
       }
     }
   }
@@ -92,12 +122,7 @@ export default function LandingPage() {
 
             {/* Desktop Navigation - Centrado y mejorado */}
             <nav className="hidden md:flex items-center justify-center gap-1 bg-black/30 backdrop-blur-sm rounded-full px-2 py-1 border border-purple-900/20">
-              {[
-                { id: "inicio", label: "INICIO" },
-                { id: "servicios", label: "SERVICIOS" },
-                { id: "trabajos", label: "TRABAJOS" },
-                { id: "contacto", label: "CONTACTO" },
-              ].map((item) => (
+              {sections.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
@@ -122,12 +147,11 @@ export default function LandingPage() {
                 Contáctanos
               </Button>
 
-              
-                <Button 
-                className="bg-purple-600 hover:bg-purple-700 text-white border border-purple-500"
-                onClick={()=> scrollToSection("contacto")}>
-                  Trabaja con Nosotros
+              <Link href="/entrevista-virtual">
+                <Button className="bg-purple-600 hover:bg-purple-700 text-white border border-purple-500">
+                  Trabajá con Nosotros
                 </Button>
+              </Link>
             </div>
 
             {/* Mobile Navigation */}
@@ -139,12 +163,7 @@ export default function LandingPage() {
               </SheetTrigger>
               <SheetContent className="bg-black/95 border-purple-900/30">
                 <div className="flex flex-col gap-6 mt-10">
-                  {[
-                    { id: "inicio", label: "Inicio" },
-                    { id: "servicios", label: "Servicios" },
-                    { id: "trabajos", label: "Trabajos" },
-                    { id: "contacto", label: "Contacto" },
-                  ].map((item) => (
+                  {sections.map((item) => (
                     <SheetTrigger asChild key={item.id}>
                       <button
                         onClick={() => scrollToSection(item.id)}
@@ -168,14 +187,11 @@ export default function LandingPage() {
                     </Button>
                   </SheetTrigger>
                   <SheetTrigger asChild>
-                      <Button 
-                      onClick={()=> scrollToSection("contacto")}
-                      variant="outline"
-                      className="bg-purple-600 hover:bg-purple-700 text-white mt-2 w-full border border-purple-500"
-                      >
-                        Trabaja con Nosotros
+                    <Link href="/entrevista-virtual">
+                      <Button className="bg-purple-600 hover:bg-purple-700 text-white mt-2 w-full border border-purple-500">
+                        Trabajá con Nosotros
                       </Button>
-                    
+                    </Link>
                   </SheetTrigger>
                 </div>
               </SheetContent>
@@ -196,4 +212,4 @@ export default function LandingPage() {
     </div>
   )
 }
-{/*<Link href="/entrevista-virtual"></Link> "cuando quiera linkear un boton añado esto con <link> "*/}
+
