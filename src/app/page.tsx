@@ -147,11 +147,17 @@ export default function LandingPage() {
                 Contáctanos
               </Button>
 
-              <Link href="/entrevista-virtual">
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white border border-purple-500">
-                  Trabajá con Nosotros
-                </Button>
-              </Link>
+              <Button
+                onClick={() => {
+                  const section = document.getElementById("contacto");
+                  if (section) {
+                    section.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+                className="bg-purple-600 hover:bg-purple-700 text-white border border-purple-500"
+              >
+                Trabajá con Nosotros
+              </Button> 
             </div>
 
             {/* Mobile Navigation */}
