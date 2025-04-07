@@ -40,7 +40,7 @@ export default function ContactSection() {
     setFormStatus({ type: null, message: "" })
 
     try {
-      const response = await fetch("/api/subscribe", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -129,15 +129,8 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              {/*<div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-purple-600/20 flex items-center justify-center">
-                  <MessageSquare className="h-5 w-5 text-purple-400" />
-                </div>
-                <div>
-                  <h3 className="text-white font-medium">Soporte</h3>
-                  <p className="text-purple-200/70">soporte@tuempresa.com</p>
-                </div>
-              </div>*/}
+              <div className="flex items-center gap-4">
+              </div>
             </div>
           </motion.div>
 
