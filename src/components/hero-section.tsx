@@ -335,15 +335,17 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer z-10"
+        className="fixed bottom-10 inset-x-0 flex justify-center z-50"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1.5 }}
         onClick={() => document.getElementById("servicios")?.scrollIntoView({ behavior: "smooth" })}
       >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-purple-200 text-sm">Descubrí más</span>
-          <ChevronDown className="text-purple-400 animate-bounce h-6 w-6" />
+        <div className="flex justify-center">
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-purple-200 text-sm">Descubrí más</span>
+            <ChevronDown className="text-purple-400 animate-bounce h-6 w-6" />
+          </div>
         </div>
       </motion.div>
     </section>
